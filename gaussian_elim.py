@@ -56,10 +56,18 @@ def check_with_numpy_solve(matrix, answer):
     return x
     
 def comparing_head_to_head(numpy_solve, manual_solve):
+    print("   answer from numpy   |   answer by manual   | difference")
     for i in range(n):
-        print(f"{numpy_solve[i]} | {manual_solve[i]}",end=' ')
-        if abs(numpy_solve[i] - manual_solve[i]) < 1e-10:
-            print("| Equal")
+        print_text_numpy = " " + str(numpy_solve[i])
+        while len(print_text_numpy) < 23:
+            print_text_numpy = print_text_numpy + " "
+        print(f"{print_text_numpy}",end="|")
+        print_text_manual = " " + str(manual_solve[i])
+        while len(print_text_manual) < 22:
+            print_text_manual = print_text_manual + " "
+        print(f"{print_text_manual}",end='|')
+        difference_text = " " + str(abs(numpy_solve[i] - manual_solve[i]))
+        print(f"{difference_text}")
 
 
 print("Original Matrix:")

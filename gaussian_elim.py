@@ -1,4 +1,5 @@
 import random
+import numpy as np
 
 def generate_random_matrix_and_answer(n):
     matrix = [[random.randint(1, 100) for _ in range(n)] for _ in range(n)]
@@ -43,13 +44,28 @@ def backward(matrix, answer):
         print(f"\nMatrix after backward #{n-i}:")
         show_matrix(matrix, answer)
             
-n = 3
+n = 10
 matrix, answer = generate_random_matrix_and_answer(n)
 # matrix = [[1, 1, 1], [3, 2, 1], [2, -1, 4]]
 # answer = [6, 10, 12]
+
+def check_with_numpy_solve(matrix, answer):
+    A = np.array(matrix)
+    b = np.array(answer)
+    x = np.linalg.solve(A, b)
+    return x
+    
+def comparing_head_to_head(numpy_solve, manual_solve):
+    for i in range(n):
+        print(f"{numpy_solve[i]} | {manual_solve[i]}",end=' ')
+        if abs(numpy_solve[i] - manual_solve[i]) < 1e-10:
+            print("| Equal")
 
 
 print("Original Matrix:")
 show_matrix(matrix, answer)
 forward(matrix, answer)
 backward(matrix, answer)
+numpy_solve = check_with_numpy_solve(matrix, answer)
+manual_solve = answer
+comparing_head_to_head(numpy_solve, manual_solve)

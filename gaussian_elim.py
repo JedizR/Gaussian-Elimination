@@ -33,6 +33,16 @@ def forward(matrix, answer):
             print(f"\nMatrix after forward #{i+1}:")
             show_matrix(matrix, answer)
             
+def backward(matrix, answer):
+    for i in range(n-1, 0, -1):
+        for j in range(i-1, -1, -1):
+            factor = -1.0 * matrix[j][i]
+            for k in range(n):
+                matrix[j][k] += factor * matrix[i][k]
+            answer[j] += factor * answer[i]
+        print(f"\nMatrix after backward #{n-i}:")
+        show_matrix(matrix, answer)
+            
 n = 3
 matrix, answer = generate_random_matrix_and_answer(n)
 # matrix = [[1, 1, 1], [3, 2, 1], [2, -1, 4]]
@@ -42,5 +52,4 @@ matrix, answer = generate_random_matrix_and_answer(n)
 print("Original Matrix:")
 show_matrix(matrix, answer)
 forward(matrix, answer)
-# print("\nModified Matrix:")
-# show_matrix(matrix, answer)
+backward(matrix, answer)

@@ -17,19 +17,21 @@ def show_matrix(matrix, answer):
     
 def forward(matrix, answer):
     for i in range(n):
+        should_print = False
         if matrix[i][i] != 1:
             factor = matrix[i][i]
             for j in range(n):
                 matrix[i][j] /= factor
             answer[i] /= factor
+            should_print = True
         for j in range(i+1, n):
             factor = -1.0 * matrix[j][i]
             for k in range(n):
                 matrix[j][k] += factor * matrix[i][k]
-            answer[j] += factor * answer[i]
-                
-        print("\nModified Matrix:")
-        show_matrix(matrix, answer)
+            answer[j] += factor * answer[i] 
+        if should_print == True:
+            print(f"\nMatrix after forward #{i+1}:")
+            show_matrix(matrix, answer)
             
 n = 3
 matrix, answer = generate_random_matrix_and_answer(n)
@@ -40,5 +42,5 @@ matrix, answer = generate_random_matrix_and_answer(n)
 print("Original Matrix:")
 show_matrix(matrix, answer)
 forward(matrix, answer)
-print("\nModified Matrix:")
-show_matrix(matrix, answer)
+# print("\nModified Matrix:")
+# show_matrix(matrix, answer)
